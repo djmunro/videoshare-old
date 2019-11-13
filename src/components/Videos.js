@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams, Link } from "react-router-dom";
 import { useDocument } from "react-firebase-hooks/firestore";
 import styled from "@emotion/styled";
 
@@ -7,7 +8,8 @@ import YouTube from "./YouTube";
 
 const VideosContainer = styled.div``;
 
-const Videos = ({ subject, navigateBack }) => {
+const Videos = () => {
+  const { slug: subject } = useParams();
   const link = React.useRef();
   const [videos, loading, error] = useDocument(db.doc(`videos/${subject}`), {
     snapshotListenOptions: { includeMetadataChanges: true }
@@ -31,8 +33,11 @@ const Videos = ({ subject, navigateBack }) => {
 
   return (
     <>
-      <button onClick={navigateBack}>Back to subjects</button>
-      <h2>{`${subject} videos`}</h2>
+      <Link to="/">
+        <button>Back to subjects</button>
+      </Link>
+
+      <h2>{`${subject.replace(/-/g, " ")} videos`}</h2>
       <form onSubmit={handleOnSubmit}>
         <input ref={link} />
         <button>Add Video</button>

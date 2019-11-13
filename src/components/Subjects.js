@@ -5,17 +5,11 @@ import styled from "@emotion/styled";
 import { db } from "../firebase";
 import Subject from "./Subject";
 
-const Container = styled.div`
-  margin: 0 auto;
-  width: 100%;
-`;
+const Container = styled.div``;
 
-const SubjectsContainer = styled.div`
-  width: 40%;
-  background-color: blue;
-`;
+const SubjectsContainer = styled.div``;
 
-const Subjects = ({ navigateSubject }) => {
+const Subjects = () => {
   const subject = React.createRef();
   const [subjectFilter, setSubjectFilter] = useState("");
 
@@ -23,14 +17,11 @@ const Subjects = ({ navigateSubject }) => {
     snapshotListenOptions: { includeMetadataChanges: true }
   });
 
-  const gotoVideos = subject => {
-    navigateSubject(subject);
-  };
-
   const handleSubjectSubmit = event => {
     // handle subject validation
+    const slug = subject.current.value;
     db.collection("videos")
-      .doc(subject.current.value)
+      .doc(slug.replace(/ /g, "-"))
       .set({
         links: []
       })
@@ -75,7 +66,6 @@ const Subjects = ({ navigateSubject }) => {
                 <Subject
                   key={subject.id}
                   subject={subject.id}
-                  gotoVideos={gotoVideos}
                   handleDeleteSubject={handleDeleteSubject}
                 />
               ))}

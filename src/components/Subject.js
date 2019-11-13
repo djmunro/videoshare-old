@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Subject = ({ subject, gotoVideos, handleDeleteSubject }) => {
+const Subject = ({ subject, handleDeleteSubject }) => {
   return (
     <li>
-      <span onClick={() => gotoVideos(subject)}>{subject}</span>
+      <Link to={`/subject/${subject}`}>{subject.replace(/-/g, " ")}</Link>
       <button onClick={() => handleDeleteSubject(subject)}>Delete</button>
     </li>
   );
