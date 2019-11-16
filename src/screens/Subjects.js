@@ -6,8 +6,13 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 
 import {db} from '../firebase'
 
-import {CenteredBox, CenteredRow, IconButton, SuccessButton} from './components'
-import Subject from './Subject'
+import {
+  CenteredBox,
+  CenteredRow,
+  IconButton,
+  SuccessButton,
+} from '../components/components'
+import Subject from '../components/Subject'
 
 const Subjects = () => {
   const subject = React.createRef()

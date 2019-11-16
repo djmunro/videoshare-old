@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react'
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import Subjects from "./components/Subjects";
-import Videos from "./components/Videos";
+import Subjects from './screens/Subjects'
+import Videos from './screens/Videos'
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App
