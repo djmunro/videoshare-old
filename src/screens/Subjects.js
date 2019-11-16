@@ -6,12 +6,7 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 
 import {db} from '../firebase'
 
-import {
-  CenteredBox,
-  CenteredRow,
-  IconButton,
-  SuccessButton,
-} from '../components/components'
+import {CenteredBox, CenteredRow, SuccessButton} from '../components/components'
 import Subject from '../components/Subject'
 
 const Subjects = () => {
@@ -57,7 +52,7 @@ const Subjects = () => {
   return (
     <CenteredBox
       css={css`
-        width: 500px;
+        width: 350px;
         margin: 0 auto;
       `}
     >
@@ -86,8 +81,8 @@ const Subjects = () => {
             placeholder="Add a subject"
             style={{flex: 1}}
             required
-            minlength="1"
-            maxlength="50"
+            minLength="1"
+            maxLength="40"
           />
           <SuccessButton
             type="submit"
@@ -124,7 +119,12 @@ const Subjects = () => {
           ))}
       </div>
 
-      <button onClick={() => setSubjectFilter('')}>Reset filter</button>
+      <button
+        className="button button-outline"
+        onClick={() => setSubjectFilter('')}
+      >
+        Reset filter
+      </button>
     </CenteredBox>
   )
 }

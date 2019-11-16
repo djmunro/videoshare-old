@@ -1,13 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import {css, jsx} from '@emotion/core'
 
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "@emotion/styled";
+import {Link} from 'react-router-dom'
 
-import { Row, IconButton } from "./components";
+import {Row, IconButton} from './components'
 
-const Subject = ({ subject, slug, handleDeleteSubject }) => {
+const Subject = ({subject, slug, handleDeleteSubject}) => {
   return (
     <div>
       <Row
@@ -20,11 +18,13 @@ const Subject = ({ subject, slug, handleDeleteSubject }) => {
         <Link to={`/subjects/${slug}`}>{subject}</Link>
         <IconButton
           onClick={e => {
-            e.target.blur();
+            e.target.blur()
             if (
-              confirm("🚨 Hey! Are you sure you wanna delete that SUBJECT? 🚨")
+              window.confirm(
+                '🚨 Hey! Are you sure you wanna delete that SUBJECT? 🚨',
+              )
             ) {
-              handleDeleteSubject(slug);
+              handleDeleteSubject(slug)
             }
           }}
         >
@@ -32,6 +32,6 @@ const Subject = ({ subject, slug, handleDeleteSubject }) => {
         </IconButton>
       </Row>
     </div>
-  );
-};
-export default Subject;
+  )
+}
+export default Subject
