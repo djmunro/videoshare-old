@@ -1,12 +1,37 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+
 import React from "react";
 import { Link } from "react-router-dom";
+import styled from "@emotion/styled";
 
-const Subject = ({ subject, handleDeleteSubject }) => {
+import { Row, IconButton } from "./components";
+
+const Subject = ({ subject, slug, handleDeleteSubject }) => {
   return (
-    <li>
-      <Link to={`/subject/${subject}`}>{subject.replace(/-/g, " ")}</Link>
-      <button onClick={() => handleDeleteSubject(subject)}>Delete</button>
-    </li>
+    <div>
+      <Row
+        css={css`
+          justify-content: space-between;
+          align-items: center;
+          margin: 20px 0 20px 0;
+        `}
+      >
+        <Link to={`/subjects/${slug}`}>{subject}</Link>
+        <IconButton
+          onClick={e => {
+            e.target.blur();
+            if (
+              confirm("🚨 Hey! Are you sure you wanna delete that SUBJECT? 🚨")
+            ) {
+              handleDeleteSubject(slug);
+            }
+          }}
+        >
+          ❌
+        </IconButton>
+      </Row>
+    </div>
   );
 };
 export default Subject;

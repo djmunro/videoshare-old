@@ -11,7 +11,7 @@ function App() {
         <Route exact path="/">
           <Subjects />
         </Route>
-        <Route path="/subject/:slug">
+        <Route path="/subjects/:slug?">
           <Videos />
         </Route>
       </Switch>
