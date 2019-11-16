@@ -85,6 +85,9 @@ const Subjects = () => {
             ref={subject}
             placeholder="Add a subject"
             style={{flex: 1}}
+            required
+            minlength="1"
+            maxlength="50"
           />
           <SuccessButton
             type="submit"
