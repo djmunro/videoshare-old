@@ -1,56 +1,51 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import {css, jsx} from '@emotion/core'
 
-import React, { useState } from "react";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import React, {useState} from 'react'
+import {useCollectionData} from 'react-firebase-hooks/firestore'
 
-import { db } from "../firebase";
+import {db} from '../firebase'
 
-import {
-  CenteredBox,
-  CenteredRow,
-  IconButton,
-  SuccessButton
-} from "./components";
-import Subject from "./Subject";
+import {CenteredBox, CenteredRow, IconButton, SuccessButton} from './components'
+import Subject from './Subject'
 
 const Subjects = () => {
-  const subject = React.createRef();
-  const [subjectFilter, setSubjectFilter] = useState("");
-  const [subjects, loading, error] = useCollectionData(db.collection("videos"));
+  const subject = React.createRef()
+  const [subjectFilter, setSubjectFilter] = useState('')
+  const [subjects, loading, error] = useCollectionData(db.collection('videos'))
 
   const handleSubjectSubmit = event => {
     // handle subject validation
-    const name = subject.current.value;
-    const slug = name.toLowerCase().replace(/ /g, "-");
-    db.collection("videos")
+    const name = subject.current.value
+    const slug = name.toLowerCase().replace(/ /g, '-')
+    db.collection('videos')
       .doc(slug)
       .set({
         name: name,
         slug: slug,
-        links: []
+        links: [],
       })
-      .then((subject.current.value = ""));
+      .then((subject.current.value = ''))
 
-    event.preventDefault();
-  };
+    event.preventDefault()
+  }
 
   const handleDeleteSubject = subject => {
-    db.collection("videos")
+    db.collection('videos')
       .doc(subject)
-      .delete();
-  };
+      .delete()
+  }
 
   const handleSubjectFilterChange = event => {
-    setSubjectFilter(event.target.value);
-    event.preventDefault();
-  };
+    setSubjectFilter(event.target.value)
+    event.preventDefault()
+  }
 
   const filterObjects = s => {
     return s.filter(item =>
-      item.name.toLowerCase().includes(subjectFilter.toLowerCase())
-    );
-  };
+      item.name.toLowerCase().includes(subjectFilter.toLowerCase()),
+    )
+  }
 
   // how to get subjectFIlter to use uncontrolled input
   // but still be able to filter
@@ -63,13 +58,13 @@ const Subjects = () => {
     >
       <CenteredRow
         css={css`
-          text-align: "center";
+          text-align: 'center';
           margin-top: 30;
           margin-bottom: 30;
-          align-items: "center";
+          align-items: 'center';
         `}
       >
-        <h1 style={{ marginBottom: "40px" }}>Videoshare</h1>
+        <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
       </CenteredRow>
 
       <h2>Add Subject</h2>
@@ -84,7 +79,7 @@ const Subjects = () => {
             type="text"
             ref={subject}
             placeholder="Add a subject"
-            style={{ flex: 1 }}
+            style={{flex: 1}}
           />
           <SuccessButton
             type="submit"
@@ -121,8 +116,8 @@ const Subjects = () => {
           ))}
       </div>
 
-      <button onClick={() => setSubjectFilter("")}>Reset filter</button>
+      <button onClick={() => setSubjectFilter('')}>Reset filter</button>
     </CenteredBox>
-  );
-};
-export default Subjects;
+  )
+}
+export default Subjects
