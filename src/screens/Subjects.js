@@ -6,6 +6,7 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 
 import {db} from '../firebase'
 
+import * as mq from '../media-queries'
 import {CenteredBox, CenteredRow, SuccessButton} from '../components/components'
 import Subject from '../components/Subject'
 
@@ -50,12 +51,7 @@ const Subjects = () => {
   // how to get subjectFIlter to use uncontrolled input
   // but still be able to filter
   return (
-    <CenteredBox
-      css={css`
-        width: 350px;
-        margin: 0 auto;
-      `}
-    >
+    <div className="container">
       <CenteredRow
         css={css`
           text-align: 'center';
@@ -74,7 +70,13 @@ const Subjects = () => {
         `}
         onSubmit={handleSubjectSubmit}
       >
-        <CenteredRow>
+        <CenteredRow
+          css={{
+            [mq.small]: {
+              display: 'block',
+            },
+          }}
+        >
           <input
             type="text"
             ref={subject}
@@ -86,16 +88,28 @@ const Subjects = () => {
           />
           <SuccessButton
             type="submit"
-            css={css`
-              margin-left: 20px;
-            `}
+            css={{
+              marginLeft: '20px',
+
+              [mq.small]: {
+                marginLeft: '0',
+                width: '100%',
+              },
+            }}
           >
             Add Subject
           </SuccessButton>
         </CenteredRow>
       </form>
 
-      <hr />
+      <hr
+        css={{
+          [mq.small]: {
+            marginTop: '8px',
+            marginBottom: '8px',
+          },
+        }}
+      />
 
       <h2>Subjects</h2>
       <input
@@ -125,7 +139,7 @@ const Subjects = () => {
       >
         Reset filter
       </button>
-    </CenteredBox>
+    </div>
   )
 }
 export default Subjects
