@@ -8,6 +8,7 @@ import styled from '@emotion/styled'
 
 import * as mq from '../media-queries'
 import {db} from '../firebase'
+import {SuccessButton} from '../components/components'
 import YouTube from '../components/YouTube'
 
 const Card = styled.div`
@@ -22,6 +23,7 @@ const Videos = () => {
   const [data, loading, error] = useDocumentData(db.doc(`videos/${subject}`))
 
   const handleOnSubmit = event => {
+    event.preventDefault()
     // handle validation here
     const url = link.current.value
 
@@ -33,7 +35,7 @@ const Videos = () => {
         links: [url, ...data.links],
       })
 
-    event.preventDefault()
+    link.current.value = ''
   }
 
   return (
@@ -44,7 +46,7 @@ const Videos = () => {
       `}
     >
       <Link to="/">
-        <button>Back to subjects</button>
+        <button className="button button-outline">Back to subjects</button>
       </Link>
 
       <h2
@@ -55,7 +57,7 @@ const Videos = () => {
         }}
       >{`${data ? data.name : '...'} videos`}</h2>
       <form onSubmit={handleOnSubmit}>
-        <input ref={link} type="text" />
+        <input ref={link} type="text" required minLength="1" />
         <button>Add Video</button>
       </form>
       <div
@@ -70,7 +72,7 @@ const Videos = () => {
         `}
       >
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <span>Loading...</span>}
+        {loading && <h2>Loading...</h2>}
         {data &&
           data.links.map(link => (
             <Card key={link}>

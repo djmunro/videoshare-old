@@ -130,7 +130,7 @@ const Subjects = () => {
       />
 
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Loading...</span>}
+      {loading && <h2>Loading...</h2>}
       <div>
         {subjects &&
           filterObjects(subjects).map(item => (
