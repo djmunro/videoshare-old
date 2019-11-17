@@ -51,7 +51,17 @@ const Subjects = () => {
   // how to get subjectFIlter to use uncontrolled input
   // but still be able to filter
   return (
-    <div className="container">
+    <div
+      className="container"
+      css={{
+        [mq.medium]: {
+          width: '45em',
+        },
+        [mq.large]: {
+          width: '45em',
+        },
+      }}
+    >
       <CenteredRow
         css={css`
           text-align: 'center';
