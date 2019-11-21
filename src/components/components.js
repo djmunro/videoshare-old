@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import styled from '@emotion/styled'
 
 const Button = styled.button`
   transition: all 0.1s;
@@ -9,12 +9,12 @@ const Button = styled.button`
     color: #fff;
     outline: 0;
   }
-`;
+`
 
 const SuccessButton = styled(Button)`
   background-color: #3bb272;
   border-color: #3bb272;
-`;
+`
 
 const IconButton = styled(Button)`
   background-color: transparent;
@@ -34,7 +34,7 @@ const IconButton = styled(Button)`
     transform: translate(-3px, 11px);
     z-index: -1;
     position: absolute;
-    content: "";
+    content: '';
     opacity: 0;
     transition: all 0.2s;
     background-color: #aaa;
@@ -52,24 +52,24 @@ const IconButton = styled(Button)`
   :active {
     transform: scale(0.9);
   }
-`;
+`
 
 const Box = styled.div`
   display: flex;
   flex-direction: column;
-`;
+`
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-`;
+`
 
 const CenteredBox = styled(Box)`
   justify-content: center;
-`;
+`
 
 const CenteredRow = styled(Row)`
   justify-content: center;
-`;
+`
 
-export { CenteredBox, CenteredRow, Button, SuccessButton, IconButton, Row };
+export {CenteredBox, CenteredRow, Button, SuccessButton, IconButton, Row}

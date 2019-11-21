@@ -10,16 +10,20 @@ import * as mq from '../media-queries'
 import {CenteredBox, CenteredRow, SuccessButton} from '../components/components'
 import Subject from '../components/Subject'
 
+const COLLECTION_NAME = 'topics'
+
 const Subjects = () => {
   const subject = React.createRef()
   const [subjectFilter, setSubjectFilter] = useState('')
-  const [subjects, loading, error] = useCollectionData(db.collection('videos'))
+  const [subjects, loading, error] = useCollectionData(
+    db.collection(COLLECTION_NAME),
+  )
 
   const handleSubjectSubmit = event => {
     // handle subject validation
     const name = subject.current.value
     const slug = name.toLowerCase().replace(/ /g, '-')
-    db.collection('videos')
+    db.collection(COLLECTION_NAME)
       .doc(slug)
       .set({
         name: name,
@@ -32,7 +36,7 @@ const Subjects = () => {
   }
 
   const handleDeleteSubject = subject => {
-    db.collection('videos')
+    db.collection(COLLECTION_NAME)
       .doc(subject)
       .delete()
   }
@@ -48,8 +52,6 @@ const Subjects = () => {
     )
   }
 
-  // how to get subjectFIlter to use uncontrolled input
-  // but still be able to filter
   return (
     <div
       className="container"

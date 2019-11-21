@@ -3,12 +3,11 @@ import {css, jsx} from '@emotion/core'
 
 import React from 'react'
 import {useParams, Link} from 'react-router-dom'
-import {useDocumentData} from 'react-firebase-hooks/firestore'
+import {useDocumentData, useCollection} from 'react-firebase-hooks/firestore'
 import styled from '@emotion/styled'
 
 import * as mq from '../media-queries'
 import {db} from '../firebase'
-import {SuccessButton} from '../components/components'
 import YouTube from '../components/YouTube'
 
 const Card = styled.div`
@@ -20,22 +19,28 @@ const Card = styled.div`
 const Videos = () => {
   const {slug: subject} = useParams()
   const link = React.useRef()
-  const [data, loading, error] = useDocumentData(db.doc(`videos/${subject}`))
+  const [data, loading, error] = useDocumentData(db.doc(`topics/${subject}`))
+  const [linksCollection] = useCollection(
+    db.collection(`topics/${subject}/links`),
+  )
 
-  const handleOnSubmit = event => {
+  const handleOnSubmit = async event => {
     event.preventDefault()
     // handle validation here
     const url = link.current.value
 
     if (url === '') return
 
-    db.collection('videos')
-      .doc(subject)
-      .update({
-        links: [url, ...data.links],
-      })
-
+    db.collection(`topics/${subject}/links`).add({
+      url: url,
+    })
     link.current.value = ''
+  }
+
+  function handleDelete(id) {
+    db.collection(`topics/${subject}/links`)
+      .doc(id)
+      .delete()
   }
 
   return (
@@ -72,13 +77,17 @@ const Videos = () => {
         `}
       >
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
-        {loading && <h2>Loading...</h2>}
-        {data &&
-          data.links.map(link => (
-            <Card key={link}>
-              <YouTube link={link} />
-            </Card>
-          ))}
+        {loading && <span>Loading...</span>}
+        {linksCollection &&
+          linksCollection.docs.reverse().map(link => {
+            const data = link.data()
+            return (
+              <Card key={link.id}>
+                <button onClick={() => handleDelete(link.id)}>Delete</button>
+                <YouTube link={data.url} />
+              </Card>
+            )
+          })}
       </div>
     </div>
   )
