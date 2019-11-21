@@ -1,7 +1,7 @@
 import React from 'react'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
-import Subjects from './screens/Subjects'
+import Topics from './screens/Topics'
 import Videos from './screens/Videos'
 
 function App() {
@@ -9,9 +9,9 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Subjects />
+          <Topics />
         </Route>
-        <Route path="/subjects/:slug?">
+        <Route path="/topics/:slug?">
           <Videos />
         </Route>
       </Switch>

@@ -7,48 +7,47 @@ import {useCollectionData} from 'react-firebase-hooks/firestore'
 import {db} from '../firebase'
 
 import * as mq from '../media-queries'
-import {CenteredBox, CenteredRow, SuccessButton} from '../components/components'
-import Subject from '../components/Subject'
+import {CenteredRow, SuccessButton} from '../components/components'
+import Topic from '../components/Topic'
 
 const COLLECTION_NAME = 'topics'
 
-const Subjects = () => {
-  const subject = React.createRef()
-  const [subjectFilter, setSubjectFilter] = useState('')
-  const [subjects, loading, error] = useCollectionData(
+const Topics = () => {
+  const topic = React.createRef()
+  const [topicFilter, setTopicFilter] = useState('')
+  const [topics, loading, error] = useCollectionData(
     db.collection(COLLECTION_NAME),
   )
 
   const handleSubjectSubmit = event => {
-    // handle subject validation
-    const name = subject.current.value
+    // handle topic validation
+    const name = topic.current.value
     const slug = name.toLowerCase().replace(/ /g, '-')
     db.collection(COLLECTION_NAME)
       .doc(slug)
       .set({
         name: name,
         slug: slug,
-        links: [],
       })
-      .then((subject.current.value = ''))
+      .then((topic.current.value = ''))
 
     event.preventDefault()
   }
 
-  const handleDeleteSubject = subject => {
+  const handleDeleteTopic = topic => {
     db.collection(COLLECTION_NAME)
-      .doc(subject)
+      .doc(topic)
       .delete()
   }
 
-  const handleSubjectFilterChange = event => {
-    setSubjectFilter(event.target.value)
+  const handleTopicFilterChange = event => {
+    setTopicFilter(event.target.value)
     event.preventDefault()
   }
 
   const filterObjects = s => {
     return s.filter(item =>
-      item.name.toLowerCase().includes(subjectFilter.toLowerCase()),
+      item.name.toLowerCase().includes(topicFilter.toLowerCase()),
     )
   }
 
@@ -75,7 +74,7 @@ const Subjects = () => {
         <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
       </CenteredRow>
 
-      <h2>Add Subject</h2>
+      <h2>Add Topic</h2>
       <form
         css={css`
           margin-bottom: 0;
@@ -91,8 +90,8 @@ const Subjects = () => {
         >
           <input
             type="text"
-            ref={subject}
-            placeholder="Add a subject"
+            ref={topic}
+            placeholder="Enter a topic"
             style={{flex: 1}}
             required
             minLength="1"
@@ -109,7 +108,7 @@ const Subjects = () => {
               },
             }}
           >
-            Add Subject
+            Add Topic
           </SuccessButton>
         </CenteredRow>
       </form>
@@ -123,35 +122,35 @@ const Subjects = () => {
         }}
       />
 
-      <h2>Subjects</h2>
+      <h2>Topics</h2>
       <input
         type="text"
-        value={subjectFilter}
-        onChange={handleSubjectFilterChange}
-        placeholder="Enter Subject..."
+        value={topicFilter}
+        onChange={handleTopicFilterChange}
+        placeholder="Enter Topic..."
       />
 
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <h2>Loading...</h2>}
       <div>
-        {subjects &&
-          filterObjects(subjects).map(item => (
-            <Subject
+        {topics &&
+          filterObjects(topics).map(item => (
+            <Topic
               key={item.slug}
               slug={item.slug}
-              subject={item.name}
-              handleDeleteSubject={handleDeleteSubject}
+              topic={item.name}
+              handleDeleteTopic={handleDeleteTopic}
             />
           ))}
       </div>
 
       <button
         className="button button-outline"
-        onClick={() => setSubjectFilter('')}
+        onClick={() => setTopicFilter('')}
       >
         Reset filter
       </button>
     </div>
   )
 }
-export default Subjects
+export default Topics

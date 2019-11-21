@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 
 import {Row, IconButton} from './components'
 
-const Subject = ({subject, slug, handleDeleteSubject}) => {
+const Topic = ({topic, slug, handleDeleteTopic}) => {
   return (
     <div>
       <Row
@@ -15,16 +15,16 @@ const Subject = ({subject, slug, handleDeleteSubject}) => {
           margin: 20px 0 20px 0;
         `}
       >
-        <Link to={`/subjects/${slug}`}>{subject}</Link>
+        <Link to={`/topics/${slug}`}>{topic}</Link>
         <IconButton
           onClick={e => {
             e.target.blur()
             if (
               window.confirm(
-                '🚨 Hey! Are you sure you wanna delete that SUBJECT? 🚨',
+                '🚨 Hey! Are you sure you wanna delete that TOPIC? 🚨',
               )
             ) {
-              handleDeleteSubject(slug)
+              handleDeleteTopic(slug)
             }
           }}
         >
@@ -34,4 +34,5 @@ const Subject = ({subject, slug, handleDeleteSubject}) => {
     </div>
   )
 }
-export default Subject
+
+export default Topic

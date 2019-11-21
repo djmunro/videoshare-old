@@ -17,11 +17,11 @@ const Card = styled.div`
 `
 
 const Videos = () => {
-  const {slug: subject} = useParams()
+  const {slug: topic} = useParams()
   const link = React.useRef()
-  const [data, loading, error] = useDocumentData(db.doc(`topics/${subject}`))
+  const [data, loading, error] = useDocumentData(db.doc(`topics/${topic}`))
   const [linksCollection] = useCollection(
-    db.collection(`topics/${subject}/links`),
+    db.collection(`topics/${topic}/links`),
   )
 
   const handleOnSubmit = async event => {
@@ -31,14 +31,14 @@ const Videos = () => {
 
     if (url === '') return
 
-    db.collection(`topics/${subject}/links`).add({
+    db.collection(`topics/${topic}/links`).add({
       url: url,
     })
     link.current.value = ''
   }
 
   function handleDelete(id) {
-    db.collection(`topics/${subject}/links`)
+    db.collection(`topics/${topic}/links`)
       .doc(id)
       .delete()
   }
@@ -51,7 +51,7 @@ const Videos = () => {
       `}
     >
       <Link to="/">
-        <button className="button button-outline">Back to subjects</button>
+        <button className="button button-outline">Back to topics</button>
       </Link>
 
       <h2
