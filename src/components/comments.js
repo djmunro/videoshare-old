@@ -35,7 +35,7 @@ function Comments({id, topic}) {
         },
       }}
     >
-      <form onSubmit={handleSubmit}>
+      <form css={{marginBottom: '0px'}} onSubmit={handleSubmit}>
         <input
           css={css`
             margin-bottom: 4px;
@@ -45,20 +45,31 @@ function Comments({id, topic}) {
           required
           minLength="1"
         />
-        <button
-          className="float-right"
+        <div
           css={css`
-            background-color: #ccc;
-            border-color: #ccc;
+            display: flex;
+            justify-content: flex-end;
           `}
         >
-          Comment
-        </button>
+          <button
+            css={{
+              backgroundColor: '#ccc',
+              borderColor: '#ccc',
+              [mq.small]: {
+                marginLeft: '0',
+                width: '100%',
+              },
+            }}
+          >
+            Comment
+          </button>
+        </div>
       </form>
       <ul>
         {commentsData &&
           commentsData.map(commentData => (
             <li
+              key={commentsData.created}
               css={css`
                 border-bottom: 1px solid #e3e3e3;
                 list-style: none;
