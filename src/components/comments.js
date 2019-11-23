@@ -31,7 +31,7 @@ function Comments({id, topic}) {
         padding: '32px',
         [mq.small]: {
           display: 'block',
-          padding: '4px',
+          padding: '12px',
         },
       }}
     >
