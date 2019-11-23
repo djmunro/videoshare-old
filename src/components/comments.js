@@ -61,11 +61,29 @@ function Comments({id, topic}) {
                 list-style: none;
               `}
             >
-              <span>{commentData.from}</span>
-              <span>
+              <span
+                css={css`
+                  font-weight: 700;
+                `}
+              >
+                {commentData.from}
+              </span>
+              <span
+                css={css`
+                  color: #999;
+                  font-style: italic;
+                  font-size: 1.25rem;
+                `}
+              >
                 - {formatDistance(commentData.created.toDate(), new Date())} ago
               </span>
-              <p>{commentData.comment}</p>
+              <p
+                css={css`
+                  margin-bottom: 8px;
+                `}
+              >
+                {commentData.comment}
+              </p>
             </li>
           ))}
       </ul>
