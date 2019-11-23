@@ -9,11 +9,21 @@ import styled from '@emotion/styled'
 import * as mq from '../media-queries'
 import {db} from '../firebase'
 import YouTube from '../components/YouTube'
+import {SuccessButton, IconButton} from '../components/components'
+import Comments from '../components/comments'
 
 const Card = styled.div`
   background: #fff;
   border-radius: 2px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+`
+
+const CardHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 8px;
 `
 
 const Videos = () => {
@@ -63,7 +73,7 @@ const Videos = () => {
       >{`${data ? data.name : '...'} videos`}</h2>
       <form onSubmit={handleOnSubmit}>
         <input ref={link} type="text" required minLength="1" />
-        <button>Add Video</button>
+        <SuccessButton>Add Video</SuccessButton>
       </form>
       <div
         css={css`
@@ -83,8 +93,14 @@ const Videos = () => {
             const data = link.data()
             return (
               <Card key={link.id}>
-                <button onClick={() => handleDelete(link.id)}>Delete</button>
+                <CardHeader>
+                  <IconButton onClick={() => handleDelete(link.id)}>
+                    🗑️
+                  </IconButton>
+                </CardHeader>
+
                 <YouTube link={data.url} />
+                <Comments topic={topic} id={link.id} />
               </Card>
             )
           })}

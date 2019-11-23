@@ -19,21 +19,13 @@ const SuccessButton = styled(Button)`
 const IconButton = styled(Button)`
   background-color: transparent;
   border: none;
-  font-size: 1.5em;
-  height: initial;
-  margin: 6;
+  font-size: 1em;
   padding: 0;
+  margin: 0;
   transition: all 0.1s;
-  line-height: 1;
-  position: relative;
   ::before {
-    height: 0;
-    width: 0;
-    top: 0;
-    left: 50%;
     transform: translate(-3px, 11px);
     z-index: -1;
-    position: absolute;
     content: '';
     opacity: 0;
     transition: all 0.2s;
