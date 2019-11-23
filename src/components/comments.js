@@ -3,10 +3,9 @@ import {css, jsx} from '@emotion/core'
 
 import React from 'react'
 import {formatDistance} from 'date-fns'
-import {
-  useDocumentData,
-  useCollectionData,
-} from 'react-firebase-hooks/firestore'
+import {useCollectionData} from 'react-firebase-hooks/firestore'
+
+import * as mq from '../media-queries'
 import {db} from '../firebase'
 
 function Comments({id, topic}) {
@@ -28,9 +27,13 @@ function Comments({id, topic}) {
 
   return (
     <div
-      css={css`
-        padding: 32px;
-      `}
+      css={{
+        padding: '32px',
+        [mq.small]: {
+          display: 'block',
+          padding: '4px',
+        },
+      }}
     >
       <form onSubmit={handleSubmit}>
         <input
