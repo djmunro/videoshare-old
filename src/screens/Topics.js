@@ -3,6 +3,7 @@ import {css, jsx} from '@emotion/core'
 
 import React, {useState} from 'react'
 import {useCollectionData} from 'react-firebase-hooks/firestore'
+import styled from '@emotion/styled'
 
 import {db} from '../firebase'
 
@@ -12,15 +13,26 @@ import Topic from '../components/Topic'
 
 const COLLECTION_NAME = 'topics'
 
-const Topics = () => {
+const Container = ({children}) => (
+  <div
+    className="container"
+    css={css`
+      ${mq.medium} {
+        width: 45em;
+      }
+      ${mq.large} {
+        width: 45em;
+      }
+    `}
+  >
+    {children}
+  </div>
+)
+
+const AddTopic = () => {
   const topic = React.createRef()
-  const [topicFilter, setTopicFilter] = useState('')
-  const [topics, loading, error] = useCollectionData(
-    db.collection(COLLECTION_NAME),
-  )
 
   const handleSubjectSubmit = event => {
-    // handle topic validation
     const name = topic.current.value
     const slug = name.toLowerCase().replace(/ /g, '-')
     db.collection(COLLECTION_NAME)
@@ -34,46 +46,8 @@ const Topics = () => {
     event.preventDefault()
   }
 
-  const handleDeleteTopic = topic => {
-    db.collection(COLLECTION_NAME)
-      .doc(topic)
-      .delete()
-  }
-
-  const handleTopicFilterChange = event => {
-    setTopicFilter(event.target.value)
-    event.preventDefault()
-  }
-
-  const filterObjects = s => {
-    return s.filter(item =>
-      item.name.toLowerCase().includes(topicFilter.toLowerCase()),
-    )
-  }
-
   return (
-    <div
-      className="container"
-      css={{
-        [mq.medium]: {
-          width: '45em',
-        },
-        [mq.large]: {
-          width: '45em',
-        },
-      }}
-    >
-      <CenteredRow
-        css={css`
-          text-align: 'center';
-          margin-top: 30;
-          margin-bottom: 30;
-          align-items: 'center';
-        `}
-      >
-        <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
-      </CenteredRow>
-
+    <>
       <h2>Add Topic</h2>
       <form
         css={css`
@@ -112,6 +86,47 @@ const Topics = () => {
           </SuccessButton>
         </CenteredRow>
       </form>
+    </>
+  )
+}
+
+const Topics = () => {
+  const [topicFilter, setTopicFilter] = useState('')
+  const [topics, loading, error] = useCollectionData(
+    db.collection(COLLECTION_NAME),
+  )
+
+  const handleDeleteTopic = topic => {
+    db.collection(COLLECTION_NAME)
+      .doc(topic)
+      .delete()
+  }
+
+  const handleTopicFilterChange = event => {
+    setTopicFilter(event.target.value)
+    event.preventDefault()
+  }
+
+  const filterObjects = s => {
+    return s.filter(item =>
+      item.name.toLowerCase().includes(topicFilter.toLowerCase()),
+    )
+  }
+
+  return (
+    <Container>
+      <CenteredRow
+        css={css`
+          text-align: 'center';
+          margin-top: 30;
+          margin-bottom: 30;
+          align-items: 'center';
+        `}
+      >
+        <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
+      </CenteredRow>
+
+      <AddTopic />
 
       <hr
         css={{
@@ -150,7 +165,7 @@ const Topics = () => {
       >
         Reset filter
       </button>
-    </div>
+    </Container>
   )
 }
 export default Topics

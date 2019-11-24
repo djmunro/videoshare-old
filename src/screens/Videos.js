@@ -98,9 +98,7 @@ const Videos = () => {
                     🗑️
                   </IconButton>
                 </CardHeader>
-
                 <YouTube link={data.url} />
-                <Comments topic={topic} id={link.id} />
               </Card>
             )
           })}
