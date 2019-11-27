@@ -10,7 +10,24 @@ import * as mq from '../media-queries'
 import {db} from '../firebase'
 import YouTube from '../components/YouTube'
 import {SuccessButton, IconButton} from '../components/components'
-import Comments from '../components/comments'
+import {Emoji} from '../components/lib'
+
+const Container = ({children}) => (
+  <div
+    className="container"
+    css={css`
+      padding-top: 0.5em;
+    `}
+  >
+    {children}
+  </div>
+)
+
+const Title = styled.h1`
+  ${mq.small} {
+    font-size: 2rem;
+  }
+`
 
 const Card = styled.div`
   background: #fff;
@@ -26,6 +43,16 @@ const CardHeader = styled.div`
   margin-right: 8px;
 `
 
+const VideosContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1em;
+
+  ${mq.small} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
+
 const Videos = () => {
   const {slug: topic} = useParams()
   const link = React.useRef()
@@ -36,7 +63,6 @@ const Videos = () => {
 
   const handleOnSubmit = async event => {
     event.preventDefault()
-    // handle validation here
     const url = link.current.value
 
     if (url === '') return
@@ -54,38 +80,17 @@ const Videos = () => {
   }
 
   return (
-    <div
-      className="container"
-      css={css`
-        padding-top: 0.5em;
-      `}
-    >
+    <Container>
       <Link to="/">
         <button className="button button-outline">Back to topics</button>
       </Link>
 
-      <h2
-        css={{
-          [mq.small]: {
-            fontSize: '2rem',
-          },
-        }}
-      >{`${data ? data.name : '...'} videos`}</h2>
+      <Title>{`${data ? data.name : '...'} videos`}</Title>
       <form onSubmit={handleOnSubmit}>
         <input ref={link} type="text" required minLength="1" />
         <SuccessButton>Add Video</SuccessButton>
       </form>
-      <div
-        css={css`
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          grid-gap: 1em;
-
-          ${mq.small} {
-            grid-template-columns: repeat(1, 1fr);
-          }
-        `}
-      >
+      <VideosContainer>
         {error && <strong>Error: {JSON.stringify(error)}</strong>}
         {loading && <span>Loading...</span>}
         {linksCollection &&
@@ -95,15 +100,15 @@ const Videos = () => {
               <Card key={link.id}>
                 <CardHeader>
                   <IconButton onClick={() => handleDelete(link.id)}>
-                    🗑️
+                    <Emoji symbol="🗑️" label="delete" />
                   </IconButton>
                 </CardHeader>
                 <YouTube link={data.url} />
               </Card>
             )
           })}
-      </div>
-    </div>
+      </VideosContainer>
+    </Container>
   )
 }
 export default Videos

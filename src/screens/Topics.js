@@ -1,17 +1,31 @@
 /** @jsx jsx */
 import {css, jsx} from '@emotion/core'
 
-import React, {useState} from 'react'
+import React from 'react'
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 import styled from '@emotion/styled'
 
 import {db} from '../firebase'
 
 import * as mq from '../media-queries'
-import {CenteredRow, SuccessButton} from '../components/components'
+import {CenteredRow} from '../components/components'
 import Topic from '../components/Topic'
+import AddTopic from '../components/AddTopic'
 
-const COLLECTION_NAME = 'topics'
+import {COLLECTION_NAME} from '../constants'
+
+const Title = () => (
+  <CenteredRow
+    css={css`
+      text-align: 'center';
+      margin-top: 30;
+      margin-bottom: 30;
+      align-items: 'center';
+    `}
+  >
+    <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
+  </CenteredRow>
+)
 
 const Container = ({children}) => (
   <div
@@ -29,77 +43,27 @@ const Container = ({children}) => (
   </div>
 )
 
-const AddTopic = () => {
-  const topic = React.createRef()
-
-  const handleSubjectSubmit = event => {
-    const name = topic.current.value
-    const slug = name.toLowerCase().replace(/ /g, '-')
-    db.collection(COLLECTION_NAME)
-      .doc(slug)
-      .set({
-        name: name,
-        slug: slug,
-      })
-      .then((topic.current.value = ''))
-
-    event.preventDefault()
+const StyledHr = styled.hr`
+  ${mq.small} {
+    margin: 8px 8px 0 0;
   }
-
-  return (
-    <>
-      <h2>Add Topic</h2>
-      <form
-        css={css`
-          margin-bottom: 0;
-        `}
-        onSubmit={handleSubjectSubmit}
-      >
-        <CenteredRow
-          css={{
-            [mq.small]: {
-              display: 'block',
-            },
-          }}
-        >
-          <input
-            type="text"
-            ref={topic}
-            placeholder="Enter a topic"
-            style={{flex: 1}}
-            required
-            minLength="1"
-            maxLength="40"
-          />
-          <SuccessButton
-            type="submit"
-            css={{
-              marginLeft: '20px',
-
-              [mq.small]: {
-                marginLeft: '0',
-                width: '100%',
-              },
-            }}
-          >
-            Add Topic
-          </SuccessButton>
-        </CenteredRow>
-      </form>
-    </>
-  )
-}
+`
 
 const Topics = () => {
-  const [topicFilter, setTopicFilter] = useState('')
+  const [topicFilter, setTopicFilter] = React.useState('')
   const [topics, loading, error] = useCollectionData(
     db.collection(COLLECTION_NAME),
   )
 
   const handleDeleteTopic = topic => {
-    db.collection(COLLECTION_NAME)
-      .doc(topic)
-      .delete()
+    const deleteTopic = window.confirm(
+      '🚨 Hey! Are you sure you wanna delete that TOPIC? 🚨',
+    )
+    if (deleteTopic) {
+      db.collection(COLLECTION_NAME)
+        .doc(topic)
+        .delete()
+    }
   }
 
   const handleTopicFilterChange = event => {
@@ -115,27 +79,9 @@ const Topics = () => {
 
   return (
     <Container>
-      <CenteredRow
-        css={css`
-          text-align: 'center';
-          margin-top: 30;
-          margin-bottom: 30;
-          align-items: 'center';
-        `}
-      >
-        <h1 style={{marginBottom: '40px'}}>Videoshare</h1>
-      </CenteredRow>
-
+      <Title />
       <AddTopic />
-
-      <hr
-        css={{
-          [mq.small]: {
-            marginTop: '8px',
-            marginBottom: '8px',
-          },
-        }}
-      />
+      <StyledHr />
 
       <h2>Topics</h2>
       <input
@@ -147,17 +93,15 @@ const Topics = () => {
 
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <h2>Loading...</h2>}
-      <div>
-        {topics &&
-          filterObjects(topics).map(item => (
-            <Topic
-              key={item.slug}
-              slug={item.slug}
-              topic={item.name}
-              handleDeleteTopic={handleDeleteTopic}
-            />
-          ))}
-      </div>
+      {topics &&
+        filterObjects(topics).map(item => (
+          <Topic
+            key={item.slug}
+            slug={item.slug}
+            topic={item.name}
+            handleDeleteTopic={handleDeleteTopic}
+          />
+        ))}
 
       <button
         className="button button-outline"

@@ -1,38 +1,34 @@
-/** @jsx jsx */
-import {css, jsx} from '@emotion/core'
+import React from 'react'
+import styled from '@emotion/styled'
+import PropTypes from 'prop-types'
 
 import {Link} from 'react-router-dom'
 
 import {Row, IconButton} from './components'
 
+const StyledRow = styled(Row)`
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 20px 0;
+`
+
 const Topic = ({topic, slug, handleDeleteTopic}) => {
   return (
-    <div>
-      <Row
-        css={css`
-          justify-content: space-between;
-          align-items: center;
-          margin: 20px 0 20px 0;
-        `}
-      >
-        <Link to={`/topics/${slug}`}>{topic}</Link>
-        <IconButton
-          onClick={e => {
-            e.target.blur()
-            if (
-              window.confirm(
-                '🚨 Hey! Are you sure you wanna delete that TOPIC? 🚨',
-              )
-            ) {
-              handleDeleteTopic(slug)
-            }
-          }}
-        >
+    <StyledRow>
+      <Link to={`/topics/${slug}`}>{topic}</Link>
+      <IconButton onClick={() => handleDeleteTopic(slug)}>
+        <span role="img" aria-label="delete">
           ❌
-        </IconButton>
-      </Row>
-    </div>
+        </span>
+      </IconButton>
+    </StyledRow>
   )
+}
+
+Topic.PropTypes = {
+  topic: PropTypes.string,
+  slug: PropTypes.string,
+  handleDeleteTopic: PropTypes.func,
 }
 
 export default Topic
