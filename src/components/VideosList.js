@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import Masonry from '../components/Masonry'
 
 import * as mq from '../media-queries'
 
 import {IconButton} from '../components/lib'
 import {Emoji} from '../components/lib'
 import YouTube from '../components/YouTube'
+
+import useWindowSize from '../useWindowSize'
 
 const Card = styled.div`
   background: #fff;
@@ -21,32 +24,26 @@ const CardHeader = styled.div`
   margin-right: 8px;
 `
 
-const VideosContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-gap: 1em;
+const VideosList = ({videoDocuments, handleDelete}) => {
+  const windowSize = useWindowSize()
 
-  ${mq.small} {
-    grid-template-columns: repeat(1, 1fr);
-  }
-`
-
-const VideosList = ({videoDocuments, handleDelete}) => (
-  <VideosContainer>
-    {videoDocuments.reverse().map(link => {
-      const data = link.data()
-      return (
-        <Card key={link.id}>
-          <CardHeader>
-            <IconButton onClick={() => handleDelete(link.id)}>
-              <Emoji symbol="🗑️" label="delete" />
-            </IconButton>
-          </CardHeader>
-          <YouTube link={data.url} />
-        </Card>
-      )
-    })}
-  </VideosContainer>
-)
+  return (
+    <Masonry columns={windowSize.width >= mq.MEDIUM_MIN_WIDTH ? 2 : 1}>
+      {videoDocuments.reverse().map(link => {
+        const data = link.data()
+        return (
+          <Card key={link.id}>
+            <CardHeader>
+              <IconButton onClick={() => handleDelete(link.id)}>
+                <Emoji symbol="🗑️" label="delete" />
+              </IconButton>
+            </CardHeader>
+            <YouTube link={data.url} />
+          </Card>
+        )
+      })}
+    </Masonry>
+  )
+}
 
 export default VideosList
