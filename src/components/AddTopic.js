@@ -5,7 +5,7 @@ import React from 'react'
 
 import {db} from '../firebase'
 
-import {CenteredRow, SuccessButton} from '../components/components'
+import {CenteredRow, SuccessButton} from '../components/lib'
 import {COLLECTION_NAME} from '../constants'
 import * as mq from '../media-queries'
 

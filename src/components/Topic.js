@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import {Link} from 'react-router-dom'
 
-import {Row, IconButton} from './components'
+import {Row, IconButton} from '../components/lib'
 
 const StyledRow = styled(Row)`
   justify-content: space-between;

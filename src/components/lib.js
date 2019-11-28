@@ -1,33 +1,72 @@
 /** @jsx jsx */
 import {jsx} from '@emotion/core'
+import styled from '@emotion/styled'
 
-import {keyframes} from '@emotion/core'
-import {FaSpinner} from 'react-icons/fa'
+const Button = styled.button`
+  transition: all 0.1s;
+  &:hover {
+    transition: all 0.2s;
+    background-color: #606c76;
+    border-color: #606c76;
+    color: #fff;
+    outline: 0;
+  }
+`
 
-const spin = keyframes({
-  '0%': {transform: 'rotate(0deg)'},
-  '100%': {transform: 'rotate(360deg)'},
-})
+const SuccessButton = styled(Button)`
+  background-color: #3bb272;
+  border-color: #3bb272;
+`
 
-export function Spinner(props) {
-  return (
-    <FaSpinner
-      css={{animation: `${spin} 1s linear infinite`}}
-      aria-label="loading"
-      {...props}
-    />
-  )
-}
+const IconButton = styled(Button)`
+  background-color: transparent;
+  border: none;
+  font-size: 1em;
+  padding: 0;
+  margin: 0;
+  transition: all 0.1s;
+  ::before {
+    transform: translate(-3px, 11px);
+    z-index: -1;
+    content: '';
+    opacity: 0;
+    transition: all 0.2s;
+    background-color: #aaa;
+    box-shadow: 0px 0px 20px 12px #aaa;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: transparent;
+    transform: scale(1.1);
+    ::before {
+      opacity: 1;
+    }
+  }
+  :active {
+    transform: scale(0.9);
+  }
+`
 
-export function FullPageSpinner() {
-  return (
-    <div css={{marginTop: '3em', fontSize: '4em'}}>
-      <Spinner />
-    </div>
-  )
-}
+const Box = styled.div`
+  display: flex;
+  flex-direction: column;
+`
 
-export function Emoji({symbol, label = false}) {
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+const CenteredBox = styled(Box)`
+  justify-content: center;
+`
+
+const CenteredRow = styled(Row)`
+  justify-content: center;
+`
+
+const Emoji = ({symbol, label = false}) => {
   return (
     <span
       className="emoji"
@@ -39,3 +78,5 @@ export function Emoji({symbol, label = false}) {
     </span>
   )
 }
+
+export {CenteredBox, CenteredRow, Button, SuccessButton, IconButton, Row, Emoji}

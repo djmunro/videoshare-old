@@ -8,7 +8,7 @@ import styled from '@emotion/styled'
 import {db} from '../firebase'
 
 import * as mq from '../media-queries'
-import {CenteredRow} from '../components/components'
+import {CenteredRow} from '../components/lib'
 import Topic from '../components/Topic'
 import AddTopic from '../components/AddTopic'
 
