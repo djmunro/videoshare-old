@@ -17,7 +17,7 @@ const Column = styled.li`
 export default function Masonry({
   columns = 3,
   gridGap = '1rem',
-  isProvideLi = true,
+  isProvideLi = false,
   children,
 }) {
   // split children into N arrays for columns
