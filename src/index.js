@@ -1,7 +1,7 @@
 import 'milligram'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {css} from '@emotion/core'
+import {css, Global} from '@emotion/core'
 import {ThemeProvider} from 'emotion-theming'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
@@ -28,6 +28,14 @@ function App() {
       <Router>
         <Switch>
           <AppContainer>
+            <Global
+              styles={css`
+                body {
+                  background-color: ${currentTheme.app.background};
+                  transition: background-color 0.2s;
+                }
+              `}
+            />
             <Route exact path="/">
               <Topics />
             </Route>

@@ -18,23 +18,25 @@ const typography = {
 export const lightTheme = {
   name: `light`,
   app: {
-    background: colors.black,
+    background: colors.white,
   },
   typography: {
     heading: {
       // color: colors.black,
-      fontWeight: 200,
+      fontFamily: typography.heading.fontFamily,
+      // fontWeight: 400,
     },
     paragraph: {
-      color: colors.black,
-      fontWeight: 400,
+      // color: colors.black,
+      fontFamily: typography.paragraph.fontFamily,
+      // fontWeight: 400,
     },
   },
   colors,
 }
 
 export const darkTheme = {
-  name: `dark`,
+  name: 'dark',
   app: {
     background: colors.black,
   },
