@@ -1,12 +1,9 @@
-/** @jsx jsx */
-import {css, jsx} from '@emotion/core'
-
 import React from 'react'
+import {css} from '@emotion/core'
 import {useCollectionData} from 'react-firebase-hooks/firestore'
 
 import {db} from '../firebase'
 
-import * as mq from '../media-queries'
 import Title from '../components/molecules/Title'
 import TopicsList from '../components/organisms/TopicsList'
 import AddTopicForm from '../components/molecules/AddTopicForm'
@@ -18,12 +15,7 @@ const Container = ({children}) => (
   <main
     className="container"
     css={css`
-      ${mq.medium} {
-        width: 45em;
-      }
-      ${mq.large} {
-        width: 45em;
-      }
+      max-width: 45em;
     `}
   >
     {children}

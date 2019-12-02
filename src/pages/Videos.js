@@ -7,8 +7,8 @@ import styled from '@emotion/styled'
 
 import * as mq from '../media-queries'
 import {db} from '../firebase'
-import VideosList from '../components/VideosList'
 
+import VideosList from '../components/organisms/VideosList'
 import AddVideoForm from '../components/molecules/AddVideoForm'
 
 const Container = ({children}) => (
@@ -33,13 +33,14 @@ const Title = styled.h1`
   }
 `
 
-const Button = ({children}) => (<button className="button button-outline">{children}</button>)
+const Button = ({children}) => (
+  <button className="button button-outline">{children}</button>
+)
 
 const Videos = () => {
   const {slug: topic} = useParams()
-
   const [data, loading, error] = useDocumentData(db.doc(`topics/${topic}`))
-  const [linksCollection] = useCollection(
+  const [videos, videosLoading, videosError] = useCollection(
     db.collection(`topics/${topic}/links`),
   )
 
@@ -61,16 +62,9 @@ const Videos = () => {
       </Link>
       <Title>{`${data ? data.name : '...'} videos`}</Title>
       <AddVideoForm topic={topic} />
-
-      {error && <strong>Error: {JSON.stringify(error)}</strong>}
-      {loading && <span>Loading...</span>}
-      {/* {linksCollection && (
-        <VideosList
-          videoDocuments={linksCollection.docs}
-          handleDelete={handleDelete}
-        />
-      )} */}
+      <VideosList videos={videos} handleDelete={handleDelete} />
     </Container>
   )
 }
+
 export default Videos
