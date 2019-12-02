@@ -1,5 +1,3 @@
-import {css} from '@emotion/core'
-
 import React from 'react'
 import {useParams, Link} from 'react-router-dom'
 import {useDocumentData, useCollection} from 'react-firebase-hooks/firestore'
@@ -10,22 +8,6 @@ import {db} from '../firebase'
 
 import VideosList from '../components/organisms/VideosList'
 import AddVideoForm from '../components/molecules/AddVideoForm'
-
-const Container = ({children}) => (
-  <div
-    className="container"
-    css={css`
-      ${mq.medium} {
-        width: 45em;
-      }
-      ${mq.large} {
-        width: 45em;
-      }
-    `}
-  >
-    {children}
-  </div>
-)
 
 const Title = styled.h1`
   ${mq.small} {
@@ -56,14 +38,14 @@ const Videos = () => {
   }
 
   return (
-    <Container>
+    <>
       <Link to="/">
         <Button>Back to topics</Button>
       </Link>
       <Title>{`${data ? data.name : '...'} videos`}</Title>
       <AddVideoForm topic={topic} />
       <VideosList videos={videos} handleDelete={handleDelete} />
-    </Container>
+    </>
   )
 }
 
