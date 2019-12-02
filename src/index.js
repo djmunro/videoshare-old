@@ -5,6 +5,8 @@ import {css, Global} from '@emotion/core'
 import {ThemeProvider} from 'emotion-theming'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
+import * as mq from './media-queries'
+
 import Topics from './pages/Topics'
 import Videos from './pages/Videos'
 
@@ -14,7 +16,9 @@ const AppContainer = ({children}) => (
   <main
     className="container"
     css={css`
-      max-width: 45em;
+      ${mq.large} {
+        width: 45em;
+      }
     `}
   >
     {children}

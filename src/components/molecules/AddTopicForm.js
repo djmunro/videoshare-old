@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import {darken} from 'polished'
 
 import {db} from '../../firebase'
 
@@ -8,14 +9,19 @@ import {COLLECTION_NAME} from '../../constants'
 import Heading from '../atoms/Heading'
 import Button from '../atoms/Button'
 
+const Container = styled.div`
+  background-color: ${({theme}) => darken(0.05, theme.app.background)};
+  padding: 1.5rem 1.5rem 0.1rem 1.5rem;
+  border-radius: 3px;
+`
+
 const InputContainer = styled.form`
   display: flex;
   flex-direction: row;
   width: 100%;
-`;
-
-const TopicInput = styled.input`
 `
+
+const TopicInput = styled.input``
 
 const AddTopicButton = styled(Button)`
   background-color: #3bb272;
@@ -41,22 +47,20 @@ const AddTopicForm = () => {
   }
 
   return (
-    <>
-      <Heading size={2}>Add Topic</Heading>
-      <InputContainer
-        onSubmit={handleSubjectSubmit}
-      >
-          <TopicInput
-            type="text"
-            ref={topic}
-            placeholder="Enter a topic"
-            required
-            minLength="1"
-            maxLength="40"
-          />
-          <AddTopicButton type="submit">Add Topic</AddTopicButton>
+    <Container>
+      <Heading size={4}>Add new topic</Heading>
+      <InputContainer onSubmit={handleSubjectSubmit}>
+        <TopicInput
+          type="text"
+          ref={topic}
+          placeholder="Enter a topic..."
+          required
+          minLength="1"
+          maxLength="40"
+        />
+        <AddTopicButton type="submit">Add Topic</AddTopicButton>
       </InputContainer>
-    </>
+    </Container>
   )
 }
 export default AddTopicForm
