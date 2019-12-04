@@ -1,7 +1,8 @@
 const colors = {
   black: `#0e121b`,
-  white: `#f0f3f8`,
-  primary: `#474bf5`,
+  // white: `#f0f3f8`,
+  white: '#fff',
+  primary: `#9b4dca`,
   danger: `#e60023`,
   success: `#2fd195`,
 }
