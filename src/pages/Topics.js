@@ -11,19 +11,28 @@ import Hr from '../components/atoms/Hr'
 
 import {COLLECTION_NAME} from '../constants'
 
+const Container = ({children}) => (
+  <main
+    className="container"
+    style={{width: '300px'}}
+  >
+    {children}
+  </main>
+)
+
 const Topics = () => {
   const [topics, loading, error] = useCollectionData(
     db.collection(COLLECTION_NAME),
   )
 
   return (
-    <>
+    <Container>
       <Title />
       <AddTopicForm />
       <Hr />
       <TopicsList topics={topics} loading={loading} />
       <Signature />
-    </>
+    </Container>
   )
 }
 export default Topics
