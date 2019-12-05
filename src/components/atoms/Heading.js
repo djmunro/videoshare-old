@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'react'
+import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
 
 const StyledHeading = styled.h1`
@@ -12,12 +12,12 @@ const Heading = ({size, children}) => {
   return <StyledHeading as={`h${size}`}>{children}</StyledHeading>
 }
 
-// Heading.propTypes = {
-//   size: PropTypes.number,
-// }
+Heading.propTypes = {
+  size: PropTypes.number,
+}
 
-// Heading.defaultProps = {
-//   size: 1,
-// }
+Heading.defaultProps = {
+  size: 1,
+}
 
 export default Heading

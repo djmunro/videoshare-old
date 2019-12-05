@@ -9,6 +9,7 @@ import {COLLECTION_NAME} from '../../constants'
 
 import Heading from '../atoms/Heading'
 import Button from '../atoms/Button'
+import Input from '../atoms/Input'
 
 const Container = styled.div`
   /* background-color: ${({theme}) => lighten(0.1, theme.colors.primary)}; */
@@ -25,13 +26,6 @@ const InputContainer = styled.form`
 
   ${mq.small} {
     flex-wrap: wrap;
-  }
-`
-
-const TopicInput = styled.input`
-  /* color: ${({theme}) => theme.app.background}; */
-  &::placeholder {
-    /* color: ${({theme}) => theme.colors.black}; */
   }
 `
 
@@ -68,7 +62,7 @@ const AddTopicForm = () => {
     <Container>
       <Heading size={4}>Add new topic</Heading>
       <InputContainer onSubmit={handleSubjectSubmit}>
-        <TopicInput
+        <Input
           type="text"
           ref={topic}
           placeholder="Enter a topic&hellip;"

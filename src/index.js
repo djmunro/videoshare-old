@@ -28,7 +28,7 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Topics />
+            <Topics setCurrentTheme={setCurrentTheme} />
           </Route>
           <Route path="/topics/:slug?">
             <Videos />
