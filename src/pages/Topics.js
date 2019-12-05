@@ -30,7 +30,7 @@ const Topics = () => {
       <Title />
       <AddTopicForm />
       <Hr />
-      <TopicsList topics={topics} loading={loading} />
+    <TopicsList topics={topics} loading={loading} />
       <Signature />
     </Container>
   )

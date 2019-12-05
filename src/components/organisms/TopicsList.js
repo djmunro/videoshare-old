@@ -43,7 +43,7 @@ const TopicsList = ({topics, loading}) => {
         type="text"
         value={topicFilter}
         onChange={handleTopicFilterChange}
-        placeholder="Enter Topic..."
+        placeholder="Enter Topic&hellip;"
       />
 
       {topics &&
