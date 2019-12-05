@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 import {darken} from 'polished'
 
 import {db} from '../../firebase'
+import * as mq from '../../media-queries'
 
 import Button from '../atoms/Button'
 import Heading from '../atoms/Heading'
@@ -17,14 +18,20 @@ const Container = styled.div`
 
 const InputContainer = styled.form`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  width: 100%;
+
+  ${mq.small} {
+    flex-wrap: wrap;
+  }
 `
 
 const AddVideoButton = styled(Button)`
-  background-color: #3bb272;
-  border-color: #3bb272;
   margin-left: 20px;
+  ${mq.small} {
+    margin-left: 0;
+    width: 100%;
+  }
 `
 
 const AddVideoForm = ({topic}) => {
@@ -42,7 +49,7 @@ const AddVideoForm = ({topic}) => {
 
   return (
     <Container>
-      <Heading size={4}>Add new video</Heading>
+      <Heading size={5}>Add new video</Heading>
       <InputContainer onSubmit={handleOnSubmit}>
         <Input
           value={inputValue}
