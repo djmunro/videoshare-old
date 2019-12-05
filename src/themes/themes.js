@@ -45,12 +45,12 @@ export const darkTheme = {
     heading: {
       color: colors.primary,
       fontFamily: typography.heading.fontFamily,
-      fontWeight: 400,
+      // fontWeight: 400,
     },
     paragraph: {
       color: colors.white,
       fontFamily: typography.paragraph.fontFamily,
-      fontWeight: 400,
+      // fontWeight: 400,
     },
   },
   colors,

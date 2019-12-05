@@ -11,7 +11,7 @@ const Button = ({children}) => (
   <button className="button button-outline">{children}</button>
 )
 
-const TopicsList = ({topics, loading}) => {
+const TopicsList = ({topics}) => {
   const [topicFilter, setTopicFilter] = React.useState('')
 
   const handleDeleteTopic = topic => {
