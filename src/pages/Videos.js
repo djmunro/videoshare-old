@@ -9,6 +9,15 @@ import {db} from '../firebase'
 import VideosList from '../components/organisms/VideosList'
 import AddVideoForm from '../components/molecules/AddVideoForm'
 
+const Container = ({children}) => (
+  <main
+    className="container"
+    style={{maxWidth: '45em'}}
+  >
+    {children}
+  </main>
+)
+
 const Title = styled.h1`
   ${mq.small} {
     font-size: 2rem;
@@ -38,14 +47,14 @@ const Videos = () => {
   }
 
   return (
-    <>
+    <Container>
       <Link to="/">
         <Button>Back to topics</Button>
       </Link>
       <Title>{`${data ? data.name : '...'} videos`}</Title>
       <AddVideoForm topic={topic} />
       <VideosList videos={videos} handleDelete={handleDelete} />
-    </>
+    </Container>
   )
 }
 

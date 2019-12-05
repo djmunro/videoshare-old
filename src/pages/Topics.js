@@ -14,7 +14,7 @@ import {COLLECTION_NAME} from '../constants'
 const Container = ({children}) => (
   <main
     className="container"
-    style={{width: '300px'}}
+    style={{maxWidth: '45em'}}
   >
     {children}
   </main>
