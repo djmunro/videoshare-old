@@ -6,14 +6,13 @@ import styled from '@emotion/styled'
 import * as mq from '../media-queries'
 import {db} from '../firebase'
 
-import VideosList from '../components/organisms/VideosList'
 import AddVideoForm from '../components/molecules/AddVideoForm'
+import Loading from '../components/molecules/Loading'
+
+import VideosList from '../components/organisms/VideosList'
 
 const Container = ({children}) => (
-  <main
-    className="container"
-    style={{maxWidth: '45em'}}
-  >
+  <main className="container" style={{maxWidth: '45em'}}>
     {children}
   </main>
 )
@@ -53,7 +52,8 @@ const Videos = () => {
       </Link>
       <Title>{`${data ? data.name : '...'} videos`}</Title>
       <AddVideoForm topic={topic} />
-      <VideosList videos={videos} handleDelete={handleDelete} />
+      {loading && <Loading />}
+      {!loading && <VideosList videos={videos} handleDelete={handleDelete} />}
     </Container>
   )
 }

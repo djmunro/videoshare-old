@@ -31,9 +31,8 @@ const Topics = ({setCurrentTheme}) => {
       <Title />
       <AddTopicForm />
       <Hr />
-      {/* <Loading /> */}
-      {!loading && <TopicsList topics={topics} />}
       {loading && <Loading />}
+      {!loading && <TopicsList topics={topics} />}
       <ThemeToggle setCurrentTheme={setCurrentTheme} />
       <Signature />
     </Container>
