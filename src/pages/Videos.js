@@ -8,6 +8,7 @@ import {db} from '../firebase'
 
 import AddVideoForm from '../components/molecules/AddVideoForm'
 import Loading from '../components/molecules/Loading'
+import Error from '../components/molecules/Error'
 
 import VideosList from '../components/organisms/VideosList'
 
@@ -29,8 +30,8 @@ const Button = ({children}) => (
 
 const Videos = () => {
   const {slug: topic} = useParams()
-  const [data, loading, error] = useDocumentData(db.doc(`topics/${topic}`))
-  const [videos, videosLoading, videosError] = useCollection(
+  const [data] = useDocumentData(db.doc(`topics/${topic}`))
+  const [videos, loading, error] = useCollection(
     db.collection(`topics/${topic}/links`),
   )
 
@@ -53,7 +54,8 @@ const Videos = () => {
       <Title>{`${data ? data.name : '...'} videos`}</Title>
       <AddVideoForm topic={topic} />
       {loading && <Loading />}
-      {!loading && <VideosList videos={videos} handleDelete={handleDelete} />}
+      {error && <Error />}
+      {videos && <VideosList videos={videos} handleDelete={handleDelete} />}
     </Container>
   )
 }

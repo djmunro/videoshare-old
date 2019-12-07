@@ -7,9 +7,10 @@ import Hr from '../components/atoms/Hr'
 
 import Title from '../components/molecules/Title'
 import AddTopicForm from '../components/molecules/AddTopicForm'
-import Loading from '../components/molecules/Loading'
 import ThemeToggle from '../components/molecules/ThemeToggle'
 import Signature from '../components/molecules/Signature'
+import Loading from '../components/molecules/Loading'
+import Error from '../components/molecules/Error'
 
 import TopicsList from '../components/organisms/TopicsList'
 
@@ -32,6 +33,7 @@ const Topics = ({setCurrentTheme}) => {
       <AddTopicForm />
       <Hr />
       {loading && <Loading />}
+      {error && <Error />}
       {!loading && <TopicsList topics={topics} />}
       <ThemeToggle setCurrentTheme={setCurrentTheme} />
       <Signature />
